@@ -3155,104 +3155,8 @@
                                 <h5 class="font-black text-sm text-neutral-900 dark:text-white mt-1 flex items-center gap-1.5">
                                     <i class="fa-solid fa-wallet text-emerald-600"></i> Wallet &amp; Payouts Management Studio
                                 </h5>
-                                <p class="text-[10px] text-neutral-500">Inspect every user's 10% referral wallet breakdown, set/credit/debit exact ₹ &amp; paise (0.01), add manual payouts, and Approve / Reject / Edit withdrawal requests.</p>
+                                <p class="text-[10px] text-neutral-500">Inspect every user's 10% referral wallet breakdown, adjust balances, and Approve / Reject (with reason &amp; refund) / Edit / Reset withdrawal requests.</p>
                             </div>
-                            <div class="flex items-center gap-2">
-                                <span id="adm-wallet-pending-pill" class="px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-700 dark:text-amber-300 font-black text-[10px]">0 Pending Payouts</span>
-                                <button type="button" onclick="saveAdminWalletSettings()" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-[10px] shadow-xs">Save Wallet Rules</button>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 items-end">
-                            <div>
-                                <label class="block text-[9px] font-black uppercase text-neutral-500 mb-1">Minimum Withdrawal Limit (₹) *</label>
-                                <input type="number" step="0.01" id="adm-wallet-min-withdraw" min="0.01" value="100" class="w-full p-2 rounded-xl bg-white dark:bg-neutral-900 border font-black text-emerald-600">
-                            </div>
-                            <div>
-                                <label class="block text-[9px] font-black uppercase text-neutral-500 mb-1">Referral Commission (%) *</label>
-                                <input type="number" step="0.01" id="adm-wallet-ref-pct" min="0.01" max="100" value="10" class="w-full p-2 rounded-xl bg-white dark:bg-neutral-900 border font-black text-indigo-600">
-                            </div>
-                            <div>
-                                <label class="block text-[9px] font-black uppercase text-neutral-500 mb-1">Search User / NEOKHATA ID / UPI</label>
-                                <input type="text" id="adm-wallet-search" oninput="renderAdminWalletStudio()" placeholder="Search name, mobile, NEOKHATAxxxxx..." class="w-full p-2 rounded-xl bg-white dark:bg-neutral-900 border font-semibold">
-                            </div>
-                        </div>
-
-                        <!-- All Users Referral Wallet Breakdown & Direct Balance Adjuster -->
-                        <div class="space-y-1.5">
-                            <div class="text-[10px] font-black uppercase tracking-wider text-neutral-500">All Users Referral Wallet Balance &amp; Breakdown (Exact ₹ &amp; Paise Controls)</div>
-                            <div id="admin-wallet-users-breakdown-list" class="space-y-2 max-h-72 overflow-y-auto pr-1"></div>
-                        </div>
-
-                        <!-- Add Manual Withdrawal / Payout Entry -->
-                        <div class="p-3 rounded-xl bg-white/90 dark:bg-neutral-900/90 border border-emerald-300/60 dark:border-emerald-800/60 space-y-2 text-[10px]">
-                            <div class="font-black text-emerald-700 dark:text-emerald-300 uppercase tracking-wider flex items-center gap-1.5">
-                                <i class="fa-solid fa-plus-circle"></i> Add Manual Withdrawal / Payout Entry
-                            </div>
-                            <div class="grid grid-cols-12 gap-1.5 items-center">
-                                <select id="adm-wd-manual-user" class="col-span-4 p-2 rounded-lg bg-neutral-100 dark:bg-neutral-800 border font-bold"></select>
-                                <input type="number" step="0.01" min="0.01" id="adm-wd-manual-amount" placeholder="Amount ₹ (e.g. 125.50)" class="col-span-2 p-2 rounded-lg bg-neutral-100 dark:bg-neutral-800 border font-black">
-                                <input type="text" id="adm-wd-manual-upi" placeholder="Payout UPI (user@upi)" class="col-span-3 p-2 rounded-lg bg-neutral-100 dark:bg-neutral-800 border font-mono font-bold">
-                                <select id="adm-wd-manual-status" class="col-span-2 p-2 rounded-lg bg-neutral-100 dark:bg-neutral-800 border font-black">
-                                    <option value="pending">Pending</option>
-                                    <option value="approved">Approved / Paid</option>
-                                    <option value="rejected">Rejected</option>
-                                </select>
-                                <button type="button" onclick="addAdminManualWithdrawRequest()" class="col-span-1 py-2 px-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-black">+ Add</button>
-                            </div>
-                        </div>
-
-                        <!-- User Withdrawal Requests Queue (Full Post-Action Edit / Paid / Reject+Refund / Reset) -->
-                        <div class="space-y-1.5 pt-2 border-t border-neutral-200/80 dark:border-neutral-800">
-                            <div class="text-[10px] font-black uppercase tracking-wider text-neutral-500">User Withdrawal Requests (Edit ₹ / UPI / Status / Note / Paid / Reject &amp; Refund / Reset)</div>
-                            <div id="admin-wallet-withdraw-requests-list" class="space-y-2 max-h-80 overflow-y-auto pr-1"></div>
-                        </div>
-                    </div>
-
-                    <!-- 6-Digit Affiliate & Referral Program Studio (Exact Rupees 10% Commission) -->
-                    <div id="admin-affiliate-program-studio" class="p-4 rounded-2xl bg-gradient-to-br from-indigo-500/10 via-white to-amber-500/10 dark:from-indigo-950/40 dark:via-neutral-900 dark:to-amber-950/30 border border-indigo-400/50 dark:border-indigo-700/60 space-y-3">
-                        <div class="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-neutral-200/80 dark:border-neutral-800">
-                            <div>
-                                <span class="px-2 py-0.5 rounded-full bg-indigo-600 text-white text-[9px] font-black uppercase tracking-wider">Strict 10% Rupees Affiliate Engine</span>
-                                <h5 class="font-black text-sm text-neutral-900 dark:text-white mt-1 flex items-center gap-1.5">
-                                    <i class="fa-solid fa-gift text-amber-500"></i> 6-Digit Referral &amp; Affiliate Program Studio
-                                </h5>
-                                <p class="text-[10px] text-neutral-500">Referrals stay <strong>Pending (₹0)</strong> until the referred user purchases &amp; gets an approved plan, then auto-credit strictly <strong>10% Rupees (₹)</strong> to the referrer's wallet. Edit every rule, ₹/paise commission, or referred user entry live.</p>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span id="adm-aff-summary-pill" class="px-2.5 py-1 rounded-full bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 font-black text-[10px]">0 Done • 0 Pending</span>
-                                <button type="button" onclick="saveAdminAffiliateSettings()" class="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-[10px] shadow-xs">Save Affiliate Rules</button>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-4 gap-2.5 items-end">
-                            <label class="p-2.5 rounded-xl bg-white dark:bg-neutral-900 border flex items-center justify-between cursor-pointer font-black">
-                                <span>Program Status</span>
-                                <input type="checkbox" id="adm-aff-enabled" checked class="w-4 h-4 accent-indigo-600">
-                            </label>
-                            <div>
-                                <label class="block text-[9px] font-black uppercase text-neutral-500 mb-1">Commission % on Plan *</label>
-                                <input type="number" step="0.01" id="adm-aff-commission-pct" min="0.01" max="100" value="10" class="w-full p-2 rounded-xl bg-white dark:bg-neutral-900 border font-black text-emerald-600">
-                            </div>
-                            <div>
-                                <label class="block text-[9px] font-black uppercase text-neutral-500 mb-1">Bonus Pro Days (Optional)</label>
-                                <input type="number" step="1" id="adm-aff-bonus-days" min="0" value="0" class="w-full p-2 rounded-xl bg-white dark:bg-neutral-900 border font-black">
-                            </div>
-                            <div>
-                                <label class="block text-[9px] font-black uppercase text-neutral-500 mb-1">Global Reward Banner Note</label>
-                                <input type="text" id="adm-aff-global-note" placeholder="e.g. Earn 10% Cash in Referral Wallet!" class="w-full p-2 rounded-xl bg-white dark:bg-neutral-900 border font-semibold">
-                            </div>
-                        </div>
-
-                        <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
-                            <input type="text" id="adm-aff-search" oninput="renderAdminAffiliateStudio()" placeholder="Search customer, NEOKHATA ID, 6-digit code, or referred user..." class="flex-1 min-w-[200px] p-2 rounded-xl bg-white dark:bg-neutral-900 border font-semibold">
-                            <div class="flex items-center gap-1.5 text-[10px] font-bold text-neutral-500">
-                                <span>All Referrers, 6-Digit Codes &amp; Referred Entries</span>
-                            </div>
-                        </div>
-
-                        <div id="admin-affiliate-users-list" class="space-y-2.5 max-h-96 overflow-y-auto pr-1"></div>
-                    </div>
                             <div class="flex items-center gap-2">
                                 <span id="adm-wallet-pending-pill" class="px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-700 dark:text-amber-300 font-black text-[10px]">0 Pending Payouts</span>
                                 <button type="button" onclick="saveAdminWalletSettings()" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-[10px] shadow-xs">Save Wallet Rules</button>
@@ -16649,35 +16553,16 @@ ${JSON.stringify(liveSnapshot)}`;
         function renderAdminWalletStudio() {
             const wStore = ensureWalletLedgerStore();
             const ap = ensureAffiliateProgramConfig();
-            if (document.getElementById('adm-wallet-min-withdraw')) document.getElementById('adm-wallet-min-withdraw').value = roundWalletAmount(wStore.minWithdrawLimit || 100);
-            if (document.getElementById('adm-wallet-ref-pct')) document.getElementById('adm-wallet-ref-pct').value = roundWalletAmount(ap.commissionPct || 10);
+            if (document.getElementById('adm-wallet-min-withdraw')) document.getElementById('adm-wallet-min-withdraw').value = wStore.minWithdrawLimit || 100;
+            if (document.getElementById('adm-wallet-ref-pct')) document.getElementById('adm-wallet-ref-pct').value = ap.commissionPct || 10;
 
             const pendingWds = (wStore.withdrawRequests || []).filter(w => w.status === 'pending').length;
             if (document.getElementById('adm-wallet-pending-pill')) {
                 document.getElementById('adm-wallet-pending-pill').textContent = `${pendingWds} Pending Payouts`;
             }
 
-            const allDeduplicated = getDeduplicatedAdminUsers().filter(u => {
-                const ph = extractCleanPhone(u.phone || '');
-                const uKey = ph.length === 10 ? `phone_${ph}` : (u.email || u.uid || '').toLowerCase();
-                return uKey && uKey !== 'master_admin';
-            });
-
-            const manualUserSel = document.getElementById('adm-wd-manual-user');
-            if (manualUserSel) {
-                const prevVal = manualUserSel.value;
-                manualUserSel.innerHTML = allDeduplicated.map(u => {
-                    const ph = extractCleanPhone(u.phone || '');
-                    const uKey = ph.length === 10 ? `phone_${ph}` : (u.email || u.uid || '').toLowerCase();
-                    return `<option value="${encodeURIComponent(uKey)}">${u.name || 'User'} (${u.neoUserId || ph || uKey})</option>`;
-                }).join('') || '<option value="">No users</option>';
-                if (prevVal && Array.from(manualUserSel.options).some(o => o.value === prevVal)) {
-                    manualUserSel.value = prevVal;
-                }
-            }
-
             const q = (document.getElementById('adm-wallet-search')?.value || '').toLowerCase().trim();
-            const users = allDeduplicated.filter(u => !q || `${u.neoUserId || ''} ${u.name || ''} ${u.phone || ''} ${u.email || ''}`.toLowerCase().includes(q));
+            const users = getDeduplicatedAdminUsers().filter(u => !q || `${u.neoUserId || ''} ${u.name || ''} ${u.phone || ''} ${u.email || ''}`.toLowerCase().includes(q));
 
             const usersListEl = document.getElementById('admin-wallet-users-breakdown-list');
             if (usersListEl) {
@@ -16687,34 +16572,22 @@ ${JSON.stringify(liveSnapshot)}`;
                     if (!uKey || uKey === 'master_admin') return '';
                     const bd = getUserReferralWalletBreakdown(uKey);
                     const encKey = encodeURIComponent(uKey);
-                    const safeDomId = uKey.replace(/[^a-z0-9]/gi, '_');
-                    const customAmtId = `adm-wal-custom-amt-${safeDomId}`;
-                    const customNoteId = `adm-wal-custom-note-${safeDomId}`;
                     return `
-                        <div class="p-3 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 space-y-2 text-[10px]">
-                            <div class="flex flex-wrap items-center justify-between gap-2">
-                                <div class="min-w-0">
-                                    <div class="font-black text-neutral-900 dark:text-white flex items-center gap-1.5 flex-wrap">
-                                        <span>${u.name || 'User'}</span>
-                                        ${u.neoUserId ? `<span class="px-1.5 py-0.5 rounded bg-primary-600/15 text-primary-600 font-mono text-[9.5px]">${u.neoUserId}</span>` : ''}
-                                        <span class="font-mono text-neutral-400">${ph || u.email || ''}</span>
-                                    </div>
-                                    <div class="text-neutral-500 font-bold mt-0.5">
-                                        Earned (10%): <strong class="text-emerald-600">₹${bd.earned10}</strong> • Admin Adj: <strong class="text-indigo-600">+₹${bd.adminCredits} / -₹${bd.adminDebits}</strong> • Withdrawn/Used: <strong>₹${roundWalletAmount(bd.activeWithdrawals + bd.planSpent)}</strong>
-                                    </div>
+                        <div class="p-2.5 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 flex flex-wrap items-center justify-between gap-2 text-[10px]">
+                            <div class="min-w-0">
+                                <div class="font-black text-neutral-900 dark:text-white flex items-center gap-1.5 flex-wrap">
+                                    <span>${u.name || 'User'}</span>
+                                    ${u.neoUserId ? `<span class="px-1.5 py-0.5 rounded bg-primary-600/15 text-primary-600 font-mono text-[9.5px]">${u.neoUserId}</span>` : ''}
+                                    <span class="font-mono text-neutral-400">${ph || u.email || ''}</span>
                                 </div>
-                                <div class="flex items-center gap-1.5 flex-wrap">
-                                    <span class="px-2.5 py-1 rounded-lg bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 font-mono font-black">Bal: ₹${bd.availableReferralBalance}</span>
-                                    <button type="button" onclick="adminAdjustUserWalletBalance('${encKey}', 'credit', 50)" class="px-2 py-1 rounded-lg bg-emerald-600 text-white font-black">+₹50</button>
-                                    <button type="button" onclick="adminAdjustUserWalletBalance('${encKey}', 'debit', 50)" class="px-2 py-1 rounded-lg bg-rose-600 text-white font-black">-₹50</button>
+                                <div class="text-neutral-500 font-bold mt-0.5">
+                                    Earned (10%): <strong class="text-emerald-600">₹${bd.earned10}</strong> • Withdrawn/Used: <strong>₹${roundWalletAmount(bd.activeWithdrawals + bd.planSpent)}</strong>
                                 </div>
                             </div>
-                            <div class="grid grid-cols-12 gap-1.5 items-center pt-1.5 border-t border-neutral-200/70 dark:border-neutral-800">
-                                <input type="number" step="0.01" min="0" id="${customAmtId}" placeholder="Exact ₹ (e.g. 125.50)" class="col-span-3 p-1.5 rounded-lg bg-neutral-100 dark:bg-neutral-800 border font-mono font-black">
-                                <input type="text" id="${customNoteId}" placeholder="Reason / Note (optional)" class="col-span-3 p-1.5 rounded-lg bg-neutral-100 dark:bg-neutral-800 border font-semibold">
-                                <button type="button" onclick="adminApplyCustomUserWalletAction('${encKey}', 'credit', '${customAmtId}', '${customNoteId}')" class="col-span-2 py-1.5 px-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-black">Add ₹</button>
-                                <button type="button" onclick="adminApplyCustomUserWalletAction('${encKey}', 'debit', '${customAmtId}', '${customNoteId}')" class="col-span-2 py-1.5 px-2 rounded-lg bg-rose-600 hover:bg-rose-700 text-white font-black">Deduct ₹</button>
-                                <button type="button" onclick="adminApplyCustomUserWalletAction('${encKey}', 'set_exact', '${customAmtId}', '${customNoteId}')" class="col-span-2 py-1.5 px-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-black">Set Exact ₹</button>
+                            <div class="flex items-center gap-1.5 flex-wrap">
+                                <span class="px-2.5 py-1 rounded-lg bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 font-mono font-black">Bal: ₹${bd.availableReferralBalance}</span>
+                                <button type="button" onclick="adminAdjustUserWalletBalance('${encKey}', 'credit', 50)" class="px-2 py-1 rounded-lg bg-emerald-600 text-white font-black">+₹50</button>
+                                <button type="button" onclick="adminAdjustUserWalletBalance('${encKey}', 'debit', 50)" class="px-2 py-1 rounded-lg bg-rose-600 text-white font-black">-₹50</button>
                             </div>
                         </div>
                     `;
@@ -16723,7 +16596,7 @@ ${JSON.stringify(liveSnapshot)}`;
 
             const wdListEl = document.getElementById('admin-wallet-withdraw-requests-list');
             if (wdListEl) {
-                const wds = (wStore.withdrawRequests || []).filter(w => !q || `${w.neoUserId || ''} ${w.userName || ''} ${w.userPhone || ''} ${w.payoutUpi || ''} ${w.rejectReason || ''}`.toLowerCase().includes(q));
+                const wds = (wStore.withdrawRequests || []).filter(w => !q || `${w.neoUserId || ''} ${w.userName || ''} ${w.userPhone || ''} ${w.payoutUpi || ''}`.toLowerCase().includes(q));
                 wdListEl.innerHTML = wds.length ? wds.map(w => {
                     const isPending = w.status === 'pending';
                     const isApproved = w.status === 'approved';
@@ -16733,23 +16606,16 @@ ${JSON.stringify(liveSnapshot)}`;
                             <div class="flex flex-wrap items-center justify-between gap-2">
                                 <div>
                                     <div class="font-black text-neutral-900 dark:text-white">
-                                        ${w.userName || 'User'} ${w.neoUserId ? `(${w.neoUserId})` : ''} • <span class="text-emerald-600 font-mono text-xs">₹${roundWalletAmount(w.amount)}</span>
+                                        ${w.userName || 'User'} ${w.neoUserId ? `(${w.neoUserId})` : ''} • <span class="text-emerald-600 font-mono text-xs">₹${w.amount}</span>
                                     </div>
                                     <div class="font-mono text-neutral-500">Payout UPI: <strong class="text-primary-600 select-all">${w.payoutUpi}</strong> • ${new Date(w.createdAt).toLocaleString('en-IN')}</div>
                                 </div>
-                                <div class="flex items-center gap-1.5">
-                                    <select onchange="handleAdminWithdrawAction('${w.id}', this.value, '${reasonInputId}')" class="px-2 py-1 rounded-lg border font-black text-[9.5px] uppercase ${isApproved ? 'bg-emerald-500/15 text-emerald-600 border-emerald-400/40' : (isPending ? 'bg-amber-500 text-white border-amber-500' : 'bg-rose-500/15 text-rose-600 border-rose-400/40')}">
-                                        <option value="pending" ${w.status === 'pending' ? 'selected' : ''}>Pending</option>
-                                        <option value="approved" ${w.status === 'approved' ? 'selected' : ''}>Approved / Paid</option>
-                                        <option value="rejected" ${w.status === 'rejected' ? 'selected' : ''}>Rejected</option>
-                                    </select>
-                                    <button type="button" onclick="deleteAdminWithdrawRequest('${w.id}')" class="p-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-600 text-rose-600 hover:text-white transition" title="Delete Request"><i class="fa-solid fa-trash"></i></button>
-                                </div>
+                                <span class="px-2 py-0.5 rounded-full font-black uppercase ${isApproved ? 'bg-emerald-500/15 text-emerald-600' : (isPending ? 'bg-amber-500 text-white' : 'bg-rose-500/15 text-rose-600')}">${isApproved ? 'Approved / Paid' : w.status}</span>
                             </div>
                             <div class="grid grid-cols-12 gap-1.5 items-center">
-                                <input type="number" step="0.01" min="0.01" value="${roundWalletAmount(w.amount)}" onchange="editAdminWithdrawRequestField('${w.id}', 'amount', this.value)" class="col-span-3 p-1.5 rounded-lg bg-neutral-100 dark:bg-neutral-800 border font-mono font-black" title="Amount (₹ & Paise)">
-                                <input type="text" value="${String(w.payoutUpi || '').replace(/"/g, '&quot;')}" onchange="editAdminWithdrawRequestField('${w.id}', 'payoutUpi', this.value)" class="col-span-4 p-1.5 rounded-lg bg-neutral-100 dark:bg-neutral-800 border font-mono font-bold" title="Payout UPI ID">
-                                <input type="text" id="${reasonInputId}" value="${String(w.rejectReason || '').replace(/"/g, '&quot;')}" onchange="editAdminWithdrawRequestField('${w.id}', 'rejectReason', this.value)" placeholder="Reject / Admin Note..." class="col-span-5 p-1.5 rounded-lg bg-neutral-100 dark:bg-neutral-800 border font-semibold">
+                                <input type="number" step="any" min="1" value="${w.amount}" onchange="editAdminWithdrawRequestField('${w.id}', 'amount', this.value)" class="col-span-3 p-1.5 rounded-lg bg-neutral-100 dark:bg-neutral-800 border font-black">
+                                <input type="text" value="${String(w.payoutUpi || '').replace(/"/g, '&quot;')}" onchange="editAdminWithdrawRequestField('${w.id}', 'payoutUpi', this.value)" class="col-span-4 p-1.5 rounded-lg bg-neutral-100 dark:bg-neutral-800 border font-mono font-bold">
+                                <input type="text" id="${reasonInputId}" value="${String(w.rejectReason || '').replace(/"/g, '&quot;')}" placeholder="Reject reason..." class="col-span-5 p-1.5 rounded-lg bg-neutral-100 dark:bg-neutral-800 border font-semibold">
                             </div>
                             <div class="flex items-center justify-end gap-1.5 flex-wrap">
                                 <button type="button" onclick="handleAdminWithdrawAction('${w.id}', 'approved')" class="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-black">Approve / Paid</button>
@@ -16765,138 +16631,44 @@ ${JSON.stringify(liveSnapshot)}`;
         function saveAdminWalletSettings() {
             const wStore = ensureWalletLedgerStore();
             const ap = ensureAffiliateProgramConfig();
-            const rawMin = parseFloat(document.getElementById('adm-wallet-min-withdraw')?.value);
-            const rawPct = parseFloat(document.getElementById('adm-wallet-ref-pct')?.value);
-            wStore.minWithdrawLimit = Math.max(0.01, roundWalletAmount(!isNaN(rawMin) && rawMin > 0 ? rawMin : 100));
-            ap.commissionPct = Math.min(100, Math.max(0.01, roundWalletAmount(!isNaN(rawPct) && rawPct > 0 ? rawPct : 10)));
+            wStore.minWithdrawLimit = Math.max(1, parseInt(document.getElementById('adm-wallet-min-withdraw')?.value, 10) || 100);
+            ap.commissionPct = Math.min(100, Math.max(1, parseInt(document.getElementById('adm-wallet-ref-pct')?.value, 10) || 10));
             safeLocalStorageSet('khataflow_admin_config', JSON.stringify(adminConfig));
             renderAdminWalletStudio();
             renderAdminAffiliateStudio();
             saveAllAdminChangesLive();
-            showToast(`Wallet rules saved (Min Withdraw: ₹${wStore.minWithdrawLimit}, Commission: ${ap.commissionPct}%)!`);
+            showToast('Wallet & Referral Commission rules saved!');
         }
 
-        function adminAdjustUserWalletBalance(encKey, mode, amount, customReason = 'Admin Manual Adjustment') {
+        function adminAdjustUserWalletBalance(encKey, mode, amount) {
             const uKey = decodeURIComponent(encKey || '');
             if (!uKey) return;
-            const cleanAmt = roundWalletAmount(parseFloat(amount) || 0);
-            if (cleanAmt <= 0) {
-                showToast('Please enter a valid rupee/paise amount (> ₹0)', 'error');
-                return;
-            }
             const wStore = ensureWalletLedgerStore();
             if (!Array.isArray(wStore.adminAdjustments[uKey])) wStore.adminAdjustments[uKey] = [];
             wStore.adminAdjustments[uKey].unshift({
-                id: `wadj_${Date.now()}_${Math.random().toString(36).slice(2, 5)}`,
+                id: `wadj_${Date.now()}`,
                 type: mode === 'debit' ? 'debit' : 'credit',
-                amount: cleanAmt,
-                reason: String(customReason || 'Admin Manual Adjustment').trim(),
+                amount: Math.max(0, Number(amount) || 0),
+                reason: 'Admin Manual Adjustment',
                 createdAt: new Date().toISOString()
             });
             safeLocalStorageSet('khataflow_admin_config', JSON.stringify(adminConfig));
             renderAdminWalletStudio();
             updateMenuWalletBalanceBadge();
-            renderUserWalletModalLists();
-            renderUserProfileHub();
             saveAllAdminChangesLive();
-            showToast(`Wallet ${mode === 'debit' ? 'debited' : 'credited'} ₹${cleanAmt}!`);
-        }
-
-        function adminApplyCustomUserWalletAction(encKey, actionMode, amtInputId, noteInputId) {
-            const uKey = decodeURIComponent(encKey || '');
-            if (!uKey) return;
-            const rawVal = parseFloat(document.getElementById(amtInputId)?.value);
-            const noteVal = (document.getElementById(noteInputId)?.value || '').trim();
-            if (isNaN(rawVal) || rawVal < 0 || (actionMode !== 'set_exact' && rawVal <= 0)) {
-                showToast('Enter a valid amount in ₹ / paise (e.g. 25.50)', 'error');
-                return;
-            }
-            const targetAmt = roundWalletAmount(rawVal);
-
-            if (actionMode === 'set_exact') {
-                const curBd = getUserReferralWalletBreakdown(uKey);
-                const diff = roundWalletAmount(targetAmt - curBd.availableReferralBalance);
-                if (Math.abs(diff) < 0.01) {
-                    showToast(`Balance is already ₹${targetAmt}`);
-                    return;
-                }
-                const adjMode = diff > 0 ? 'credit' : 'debit';
-                const adjAmount = Math.abs(diff);
-                adminAdjustUserWalletBalance(encKey, adjMode, adjAmount, noteVal || `Admin Set Exact Balance to ₹${targetAmt}`);
-            } else {
-                adminAdjustUserWalletBalance(encKey, actionMode, targetAmt, noteVal || (actionMode === 'debit' ? 'Admin Custom Debit' : 'Admin Custom Credit'));
-            }
-        }
-
-        function addAdminManualWithdrawRequest() {
-            const encKey = document.getElementById('adm-wd-manual-user')?.value || '';
-            const uKey = decodeURIComponent(encKey);
-            const amt = roundWalletAmount(parseFloat(document.getElementById('adm-wd-manual-amount')?.value) || 0);
-            const upi = (document.getElementById('adm-wd-manual-upi')?.value || '').trim();
-            const status = document.getElementById('adm-wd-manual-status')?.value || 'pending';
-
-            if (!uKey || amt <= 0 || !upi || !upi.includes('@')) {
-                showToast('Select user, enter valid ₹/paise amount, and valid payout UPI ID', 'error');
-                return;
-            }
-            const users = getDeduplicatedAdminUsers();
-            const matched = users.find(u => {
-                const ph = extractCleanPhone(u.phone || '');
-                const k = ph.length === 10 ? `phone_${ph}` : (u.email || u.uid || '').toLowerCase();
-                return k === uKey;
-            }) || {};
-
-            const wStore = ensureWalletLedgerStore();
-            wStore.withdrawRequests.unshift({
-                id: `wd_adm_${Date.now()}`,
-                userKey: uKey,
-                neoUserId: matched.neoUserId || '',
-                userName: matched.name || 'User',
-                userPhone: extractCleanPhone(matched.phone || ''),
-                userEmail: matched.email || '',
-                amount: amt,
-                payoutUpi: upi,
-                status,
-                rejectReason: status === 'rejected' ? 'Rejected by Admin' : '',
-                createdAt: new Date().toISOString()
-            });
-
-            if (document.getElementById('adm-wd-manual-amount')) document.getElementById('adm-wd-manual-amount').value = '';
-            if (document.getElementById('adm-wd-manual-upi')) document.getElementById('adm-wd-manual-upi').value = '';
-            safeLocalStorageSet('khataflow_admin_config', JSON.stringify(adminConfig));
-            renderAdminWalletStudio();
-            updateMenuWalletBalanceBadge();
-            renderUserWalletModalLists();
-            renderUserProfileHub();
-            saveAllAdminChangesLive();
-            showToast(`Manual withdrawal entry of ₹${amt} (${status.toUpperCase()}) added!`);
-        }
-
-        function deleteAdminWithdrawRequest(wdId) {
-            const wStore = ensureWalletLedgerStore();
-            wStore.withdrawRequests = (wStore.withdrawRequests || []).filter(x => x.id !== wdId);
-            safeLocalStorageSet('khataflow_admin_config', JSON.stringify(adminConfig));
-            renderAdminWalletStudio();
-            updateMenuWalletBalanceBadge();
-            renderUserWalletModalLists();
-            renderUserProfileHub();
-            saveAllAdminChangesLive();
-            showToast('Withdrawal entry removed & wallet reconciled!');
+            showToast(`Wallet ${mode === 'debit' ? 'debited' : 'credited'} ₹${amount}!`);
         }
 
         function editAdminWithdrawRequestField(wdId, field, val) {
             const wStore = ensureWalletLedgerStore();
             const wd = (wStore.withdrawRequests || []).find(x => x.id === wdId);
             if (!wd) return;
-            if (field === 'amount') wd.amount = Math.max(0.01, roundWalletAmount(parseFloat(val) || 0.01));
+            if (field === 'amount') wd.amount = Math.max(1, roundWalletAmount(parseFloat(val) || 100));
             else wd[field] = String(val || '').trim();
             safeLocalStorageSet('khataflow_admin_config', JSON.stringify(adminConfig));
             renderAdminWalletStudio();
             updateMenuWalletBalanceBadge();
-            renderUserWalletModalLists();
-            renderUserProfileHub();
             saveAllAdminChangesLive();
-            showToast('Withdrawal record updated!');
         }
 
         function handleAdminWithdrawAction(wdId, nextStatus, reasonInputId = '') {
@@ -16913,7 +16685,6 @@ ${JSON.stringify(liveSnapshot)}`;
             renderAdminWalletStudio();
             updateMenuWalletBalanceBadge();
             renderUserWalletModalLists();
-            renderUserProfileHub();
             saveAllAdminChangesLive();
             showToast(`Withdrawal #${wdId.slice(-4)} updated to ${nextStatus.toUpperCase()}!`);
         }
@@ -18381,7 +18152,7 @@ ${JSON.stringify(liveSnapshot)}`;
         function renderAdminAffiliateStudio() {
             const ap = ensureAffiliateProgramConfig();
             if (document.getElementById('adm-aff-enabled')) document.getElementById('adm-aff-enabled').checked = ap.enabled !== false;
-            if (document.getElementById('adm-aff-commission-pct')) document.getElementById('adm-aff-commission-pct').value = roundWalletAmount(ap.commissionPct || 10);
+            if (document.getElementById('adm-aff-commission-pct')) document.getElementById('adm-aff-commission-pct').value = ap.commissionPct || 10;
             if (document.getElementById('adm-aff-bonus-days')) document.getElementById('adm-aff-bonus-days').value = ap.bonusProDaysPerDone || 0;
             if (document.getElementById('adm-aff-global-note')) document.getElementById('adm-aff-global-note').value = ap.globalRewardNote || '';
 
@@ -18410,13 +18181,6 @@ ${JSON.stringify(liveSnapshot)}`;
             listEl.innerHTML = rows.length ? rows.map(({ user, uKey, ph, summary }) => {
                 const encKey = encodeURIComponent(uKey);
                 const rw = summary.rewardInfo || {};
-                const safeDomId = uKey.replace(/[^a-z0-9]/gi, '_');
-                const addRefNameId = `adm-aff-add-name-${safeDomId}`;
-                const addRefPhoneId = `adm-aff-add-phone-${safeDomId}`;
-                const addRefPlanId = `adm-aff-add-plan-${safeDomId}`;
-                const addRefPlanAmtId = `adm-aff-add-planamt-${safeDomId}`;
-                const addRefCommId = `adm-aff-add-comm-${safeDomId}`;
-                const addRefStatusId = `adm-aff-add-status-${safeDomId}`;
                 return `
                     <div class="p-3 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 space-y-2.5 text-[11px]">
                         <div class="flex flex-wrap items-center justify-between gap-2">
@@ -18436,8 +18200,8 @@ ${JSON.stringify(liveSnapshot)}`;
 
                         <div class="grid grid-cols-12 gap-1.5 items-center text-[10px] pt-1 border-t border-neutral-200/70 dark:border-neutral-800">
                             <div class="col-span-3">
-                                <label class="block text-[9px] text-neutral-400 font-bold">Bonus ₹ (+/- Paise)</label>
-                                <input type="number" step="0.01" value="${roundWalletAmount(rw.bonusPointsAdjustment || 0)}" onchange="updateAdminUserAffiliateReward('${encKey}', 'bonusPointsAdjustment', this.value)" class="w-full p-1.5 rounded-lg bg-neutral-100 dark:bg-neutral-800 border font-mono font-black">
+                                <label class="block text-[9px] text-neutral-400 font-bold">Bonus ₹ (+/-)</label>
+                                <input type="number" step="any" value="${rw.bonusPointsAdjustment || 0}" onchange="updateAdminUserAffiliateReward('${encKey}', 'bonusPointsAdjustment', this.value)" class="w-full p-1.5 rounded-lg bg-neutral-100 dark:bg-neutral-800 border font-black">
                             </div>
                             <div class="col-span-3">
                                 <label class="block text-[9px] text-neutral-400 font-bold">Reward Amount / Prize</label>
@@ -18457,53 +18221,27 @@ ${JSON.stringify(liveSnapshot)}`;
                             </div>
                         </div>
 
-                        <!-- Add Manual Referred User Entry -->
-                        <div class="p-2 rounded-xl bg-indigo-500/5 border border-indigo-300/40 dark:border-indigo-800/50 space-y-1.5 text-[10px]">
-                            <div class="font-black text-indigo-700 dark:text-indigo-300 text-[9px] uppercase">+ Add Referred User Entry for ${user.name || 'Referrer'}</div>
-                            <div class="grid grid-cols-12 gap-1 items-center">
-                                <input type="text" id="${addRefNameId}" placeholder="Referred Name" class="col-span-3 p-1.5 rounded bg-white dark:bg-neutral-900 border font-bold">
-                                <input type="text" id="${addRefPhoneId}" placeholder="Mobile/Email" class="col-span-2 p-1.5 rounded bg-white dark:bg-neutral-900 border font-mono">
-                                <input type="text" id="${addRefPlanId}" placeholder="Plan (e.g. Pro)" class="col-span-2 p-1.5 rounded bg-white dark:bg-neutral-900 border font-semibold">
-                                <input type="number" step="0.01" min="0" id="${addRefPlanAmtId}" placeholder="Plan ₹" class="col-span-1 p-1.5 rounded bg-white dark:bg-neutral-900 border font-mono font-bold">
-                                <input type="number" step="0.01" min="0" id="${addRefCommId}" placeholder="Comm ₹" class="col-span-2 p-1.5 rounded bg-white dark:bg-neutral-900 border font-mono font-black text-emerald-600">
-                                <select id="${addRefStatusId}" class="col-span-1 p-1.5 rounded bg-white dark:bg-neutral-900 border font-black text-[9px]">
-                                    <option value="pending">Pending</option>
-                                    <option value="done">Done</option>
-                                    <option value="rejected">Rejected</option>
-                                </select>
-                                <button type="button" onclick="addAdminManualReferralEntry('${encKey}', '${addRefNameId}', '${addRefPhoneId}', '${addRefPlanId}', '${addRefPlanAmtId}', '${addRefCommId}', '${addRefStatusId}')" class="col-span-1 py-1.5 px-1.5 rounded bg-indigo-600 hover:bg-indigo-700 text-white font-black">+</button>
-                            </div>
-                        </div>
-
                         ${summary.allReferrals.length ? `
                             <div class="p-2 rounded-xl bg-neutral-50 dark:bg-neutral-800/70 border space-y-1.5 text-[10px]">
-                                <div class="font-black text-neutral-500 uppercase text-[9px]">Referred Users Tracking (${summary.allReferrals.length}) — Edit Plan, ₹/Paise Commission &amp; Status</div>
+                                <div class="font-black text-neutral-500 uppercase text-[9px]">Referred Users Tracking (${summary.allReferrals.length})</div>
                                 ${summary.allReferrals.map(r => {
                                     const isDone = r.status === 'done' && r.counted;
-                                    const commAmt = r.commissionAmount !== undefined ? roundWalletAmount(Number(r.commissionAmount)) : roundWalletAmount(((Number(r.purchasedAmount) || 0) * summary.commissionPct) / 100);
+                                    const commAmt = r.commissionAmount !== undefined ? Number(r.commissionAmount) : roundWalletAmount(((Number(r.purchasedAmount) || 0) * summary.commissionPct) / 100);
                                     return `
-                                        <div class="p-1.5 rounded-lg bg-white dark:bg-neutral-900 border border-neutral-200/70 dark:border-neutral-800 space-y-1">
-                                            <div class="flex flex-wrap items-center justify-between gap-1.5">
-                                                <div>
-                                                    <strong>${r.referredName || 'User'}</strong> <span class="font-mono text-neutral-400">${r.referredPhone ? '+91 ' + r.referredPhone : (r.referredEmail || '')}</span>
-                                                    <span class="ml-1 ${isDone ? 'text-emerald-600 font-bold' : 'text-amber-600 font-bold'}">
-                                                        • ${isDone ? `Done (+₹${commAmt})` : `${String(r.status || 'pending').toUpperCase()} (₹0)`}
-                                                    </span>
-                                                </div>
-                                                <div class="flex items-center gap-1">
-                                                    <select onchange="updateAdminReferralEntryStatus('${r.id}', this.value)" class="p-1 rounded bg-neutral-100 dark:bg-neutral-800 border font-black text-[9px] uppercase">
-                                                        <option value="pending" ${r.status === 'pending' ? 'selected' : ''}>Pending</option>
-                                                        <option value="done" ${isDone ? 'selected' : ''}>Done</option>
-                                                        <option value="rejected" ${r.status === 'rejected' ? 'selected' : ''}>Rejected</option>
-                                                    </select>
-                                                    <button type="button" onclick="deleteAdminReferralEntry('${r.id}')" class="p-1 rounded bg-rose-500/10 hover:bg-rose-600 text-rose-600 hover:text-white transition" title="Remove Referred Entry"><i class="fa-solid fa-trash text-[9px]"></i></button>
-                                                </div>
+                                        <div class="flex flex-wrap items-center justify-between gap-1.5 py-1 border-b last:border-b-0 border-neutral-200/60 dark:border-neutral-700/60">
+                                            <div>
+                                                <strong>${r.referredName || 'User'}</strong> <span class="font-mono text-neutral-400">${r.referredPhone ? '+91 ' + r.referredPhone : ''}</span>
+                                                <span class="ml-1 ${isDone ? 'text-emerald-600 font-bold' : 'text-amber-600 font-bold'}">
+                                                    • ${isDone ? `Plan: ${r.purchasedPlanName || 'Pro Plan'} (+₹${commAmt})` : 'No Plan Yet (Pending ₹0)'}
+                                                </span>
                                             </div>
-                                            <div class="grid grid-cols-12 gap-1 items-center text-[9.5px]">
-                                                <input type="text" value="${String(r.purchasedPlanName || '').replace(/"/g, '&quot;')}" onchange="editAdminReferralEntryField('${r.id}', 'purchasedPlanName', this.value)" placeholder="Plan Name" class="col-span-4 p-1 rounded bg-neutral-100 dark:bg-neutral-800 border font-bold">
-                                                <input type="number" step="0.01" min="0" value="${roundWalletAmount(r.purchasedAmount || 0)}" onchange="editAdminReferralEntryField('${r.id}', 'purchasedAmount', this.value)" placeholder="Plan ₹" class="col-span-3 p-1 rounded bg-neutral-100 dark:bg-neutral-800 border font-mono font-bold" title="Purchased Plan Price ₹">
-                                                <input type="number" step="0.01" min="0" value="${commAmt}" onchange="updateAdminReferralEntryCommission('${r.id}', this.value)" placeholder="Comm ₹" class="col-span-3 p-1 rounded bg-neutral-100 dark:bg-neutral-800 border font-mono font-black text-emerald-600 text-right" title="Commission ₹ & Paise">
-                                                <input type="text" value="${String(r.adminNote || '').replace(/"/g, '&quot;')}" onchange="editAdminReferralEntryField('${r.id}', 'adminNote', this.value)" placeholder="Note..." class="col-span-2 p-1 rounded bg-neutral-100 dark:bg-neutral-800 border">
+                                            <div class="flex items-center gap-1">
+                                                <input type="number" step="any" min="0" value="${commAmt}" onchange="updateAdminReferralEntryCommission('${r.id}', this.value)" class="w-16 p-1 rounded bg-white dark:bg-neutral-900 border font-mono font-black text-right" title="Commission ₹">
+                                                <select onchange="updateAdminReferralEntryStatus('${r.id}', this.value)" class="p-1 rounded bg-white dark:bg-neutral-900 border font-black text-[9px] uppercase">
+                                                    <option value="pending" ${r.status === 'pending' ? 'selected' : ''}>Pending</option>
+                                                    <option value="done" ${isDone ? 'selected' : ''}>Done</option>
+                                                    <option value="rejected" ${r.status === 'rejected' ? 'selected' : ''}>Rejected</option>
+                                                </select>
                                             </div>
                                         </div>
                                     `;
@@ -18531,97 +18269,6 @@ ${JSON.stringify(liveSnapshot)}`;
             showToast(`Updated referral code to ${clean}`);
         }
 
-        function addAdminManualReferralEntry(encKey, nameId, phoneId, planId, planAmtId, commId, statusId) {
-            const uKey = decodeURIComponent(encKey || '');
-            if (!uKey) return;
-            const ap = ensureAffiliateProgramConfig();
-            const refName = (document.getElementById(nameId)?.value || '').trim();
-            const refContact = (document.getElementById(phoneId)?.value || '').trim();
-            const planName = (document.getElementById(planId)?.value || 'Pro Plan').trim();
-            const planAmt = Math.max(0, roundWalletAmount(parseFloat(document.getElementById(planAmtId)?.value) || 0));
-            const rawComm = parseFloat(document.getElementById(commId)?.value);
-            const status = document.getElementById(statusId)?.value || 'pending';
-            if (!refName) {
-                showToast('Enter referred user name', 'error');
-                return;
-            }
-
-            const pct = Math.min(100, Math.max(0.01, Number(ap.commissionPct) || 10));
-            const autoComm = roundWalletAmount((planAmt * pct) / 100);
-            const finalComm = status === 'done'
-                ? (!isNaN(rawComm) && rawComm >= 0 ? roundWalletAmount(rawComm) : autoComm)
-                : 0;
-
-            const cleanPh = extractCleanPhone(refContact);
-            const refUserKey = cleanPh.length === 10 ? `phone_${cleanPh}` : (refContact.includes('@') ? refContact.toLowerCase() : `manual_${Date.now()}`);
-            const myCode = getOrCreateUserSixDigitReferralCode(uKey);
-
-            ap.referrals.unshift({
-                id: `ref_adm_${Date.now()}`,
-                referrerUserKey: uKey,
-                referrerName: uKey,
-                referralCode: myCode,
-                referredUserKey: refUserKey,
-                referredName: refName,
-                referredPhone: cleanPh,
-                referredEmail: refContact.includes('@') ? refContact.toLowerCase() : '',
-                status,
-                counted: status === 'done',
-                commissionAmount: finalComm,
-                purchasedPlanName: planName,
-                purchasedAmount: planAmt,
-                signedUpAt: new Date().toISOString(),
-                completedAt: status === 'done' ? new Date().toISOString() : null
-            });
-
-            safeLocalStorageSet('khataflow_admin_config', JSON.stringify(adminConfig));
-            renderAdminAffiliateStudio();
-            renderAdminWalletStudio();
-            renderCustomerAffiliateHubCard();
-            updateMenuWalletBalanceBadge();
-            renderUserWalletModalLists();
-            renderUserProfileHub();
-            saveAllAdminChangesLive();
-            showToast(`Added referred entry "${refName}" (${status.toUpperCase()})!`);
-        }
-
-        function editAdminReferralEntryField(refId, field, val) {
-            const ap = ensureAffiliateProgramConfig();
-            const r = (ap.referrals || []).find(x => x.id === refId);
-            if (!r) return;
-            if (field === 'purchasedAmount') {
-                r.purchasedAmount = Math.max(0, roundWalletAmount(parseFloat(val) || 0));
-                if (r.status === 'done') {
-                    const pct = Math.min(100, Math.max(0.01, Number(ap.commissionPct) || 10));
-                    r.commissionAmount = roundWalletAmount((r.purchasedAmount * pct) / 100);
-                }
-            } else {
-                r[field] = String(val || '').trim();
-            }
-            safeLocalStorageSet('khataflow_admin_config', JSON.stringify(adminConfig));
-            renderAdminAffiliateStudio();
-            renderAdminWalletStudio();
-            renderCustomerAffiliateHubCard();
-            updateMenuWalletBalanceBadge();
-            renderUserWalletModalLists();
-            renderUserProfileHub();
-            saveAllAdminChangesLive();
-        }
-
-        function deleteAdminReferralEntry(refId) {
-            const ap = ensureAffiliateProgramConfig();
-            ap.referrals = (ap.referrals || []).filter(x => x.id !== refId);
-            safeLocalStorageSet('khataflow_admin_config', JSON.stringify(adminConfig));
-            renderAdminAffiliateStudio();
-            renderAdminWalletStudio();
-            renderCustomerAffiliateHubCard();
-            updateMenuWalletBalanceBadge();
-            renderUserWalletModalLists();
-            renderUserProfileHub();
-            saveAllAdminChangesLive();
-            showToast('Referred user entry removed & wallet reconciled!');
-        }
-
         function updateAdminReferralEntryStatus(refId, nextStatus) {
             const ap = ensureAffiliateProgramConfig();
             const r = (ap.referrals || []).find(x => x.id === refId);
@@ -18629,10 +18276,8 @@ ${JSON.stringify(liveSnapshot)}`;
             r.status = nextStatus;
             r.counted = nextStatus === 'done';
             if (nextStatus === 'done') {
-                const pct = Math.min(100, Math.max(0.01, Number(ap.commissionPct) || 10));
-                if (!r.commissionAmount || Number(r.commissionAmount) <= 0) {
-                    r.commissionAmount = roundWalletAmount(((Number(r.purchasedAmount) || 0) * pct) / 100);
-                }
+                const pct = Math.min(100, Math.max(1, Number(ap.commissionPct) || 10));
+                if (!r.commissionAmount) r.commissionAmount = roundWalletAmount(((Number(r.purchasedAmount) || 0) * pct) / 100);
                 r.completedAt = new Date().toISOString();
             } else {
                 r.commissionAmount = 0;
@@ -18642,8 +18287,6 @@ ${JSON.stringify(liveSnapshot)}`;
             renderAdminWalletStudio();
             renderCustomerAffiliateHubCard();
             updateMenuWalletBalanceBadge();
-            renderUserWalletModalLists();
-            renderUserProfileHub();
             saveAllAdminChangesLive();
             showToast(`Referral status set to ${nextStatus.toUpperCase()}!`);
         }
@@ -18653,35 +18296,25 @@ ${JSON.stringify(liveSnapshot)}`;
             const r = (ap.referrals || []).find(x => x.id === refId);
             if (!r) return;
             r.commissionAmount = Math.max(0, roundWalletAmount(parseFloat(newAmt) || 0));
-            if (r.commissionAmount > 0 && r.status !== 'done') {
-                r.status = 'done';
-                r.counted = true;
-                r.completedAt = new Date().toISOString();
-            }
             safeLocalStorageSet('khataflow_admin_config', JSON.stringify(adminConfig));
             renderAdminAffiliateStudio();
             renderAdminWalletStudio();
             renderCustomerAffiliateHubCard();
             updateMenuWalletBalanceBadge();
-            renderUserWalletModalLists();
-            renderUserProfileHub();
             saveAllAdminChangesLive();
-            showToast(`Updated commission to ₹${r.commissionAmount}!`);
         }
 
         function saveAdminAffiliateSettings() {
             const ap = ensureAffiliateProgramConfig();
             ap.enabled = !!document.getElementById('adm-aff-enabled')?.checked;
-            const rawPct = parseFloat(document.getElementById('adm-aff-commission-pct')?.value);
-            ap.commissionPct = Math.min(100, Math.max(0.01, roundWalletAmount(!isNaN(rawPct) && rawPct > 0 ? rawPct : 10)));
+            ap.commissionPct = Math.min(100, Math.max(1, parseInt(document.getElementById('adm-aff-commission-pct')?.value, 10) || 10));
             ap.bonusProDaysPerDone = Math.max(0, parseInt(document.getElementById('adm-aff-bonus-days')?.value, 10) || 0);
             ap.globalRewardNote = (document.getElementById('adm-aff-global-note')?.value || '').trim();
             safeLocalStorageSet('khataflow_admin_config', JSON.stringify(adminConfig));
             renderAdminAffiliateStudio();
-            renderAdminWalletStudio();
             renderCustomerAffiliateHubCard();
             saveAllAdminChangesLive();
-            showToast(`Affiliate rules saved (${ap.commissionPct}% commission)!`);
+            showToast('Affiliate & 6-Digit Referral rules saved!');
         }
 
         function updateAdminUserAffiliateReward(encKey, field, val) {
@@ -18697,11 +18330,8 @@ ${JSON.stringify(liveSnapshot)}`;
             }
             safeLocalStorageSet('khataflow_admin_config', JSON.stringify(adminConfig));
             renderAdminAffiliateStudio();
-            renderAdminWalletStudio();
             renderCustomerAffiliateHubCard();
             updateMenuWalletBalanceBadge();
-            renderUserWalletModalLists();
-            renderUserProfileHub();
             saveAllAdminChangesLive();
             showToast('Customer affiliate reward & commission updated!');
         }
